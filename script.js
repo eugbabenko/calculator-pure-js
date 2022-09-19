@@ -29,20 +29,16 @@ class Calculator {
   }
 
   calculation() {
-    let calculation;
     const previousVariable = parseFloat(this.previousNumber);
     const currentVariable = parseFloat(this.currentNumber);
     if (isNaN(previousVariable) || isNaN(currentVariable)) return;
-    this.operator === "+"
-      ? (calculation = previousVariable + currentVariable)
-      : this.operator === "-"
-      ? (calculation = previousVariable - currentVariable)
-      : this.operator === "×"
-      ? (calculation = previousVariable * currentVariable)
-      : this.operator === "÷"
-      ? (calculation = previousVariable / currentVariable)
-      : false;
-    this.currentNumber = calculation;
+    const operations = {
+      '+': (previousVariable, currentVariable) => previousVariable + currentVariable,
+      '-': (previousVariable, currentVariable) => previousVariable - currentVariable,
+      '×': (previousVariable, currentVariable) => previousVariable * currentVariable,
+      '÷': (previousVariable, currentVariable) => previousVariable / currentVariable,
+    }
+    this.currentNumber = operations[this.operator](previousVariable, currentVariable);
     this.operator = undefined;
     this.previousNumber = "";
   }
