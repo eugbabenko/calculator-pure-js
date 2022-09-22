@@ -2,16 +2,22 @@ class Calculator {
   constructor(previousNumberOnOutput, currentNumberOnOutput) {
     this.previousNumberOnOutput = previousNumberOnOutput;
     this.currentNumberOnOutput = currentNumberOnOutput;
-    this.clear();
+    this.operations = {
+      '+': (previousVariable, currentVariable) => previousVariable + currentVariable,
+      '-': (previousVariable, currentVariable) => previousVariable - currentVariable,
+      '×': (previousVariable, currentVariable) => previousVariable * currentVariable,
+      '÷': (previousVariable, currentVariable) => previousVariable / currentVariable,
+    }
+    this.clearOutput();
   }
 
-  clear() {
+  clearOutput() {
     this.previousNumber = "";
     this.currentNumber = "";
     this.operator = undefined;
   }
 
-  delete() {
+  deleteNumberFromOutput() {
     this.currentNumber = this.currentNumber.toString().slice(0, -1);
   }
 
@@ -22,23 +28,17 @@ class Calculator {
 
   chooseOperator(operator) {
     if (this.currentNumber === "") return;
-    if (this.previousNumber !== "") this.calculation();
+    if (this.previousNumber !== "") this.calculateResult();
     this.operator = operator;
     this.previousNumber = this.currentNumber;
     this.currentNumber = "";
   }
 
-  calculation() {
+  calculateResult() {
     const previousVariable = parseFloat(this.previousNumber);
     const currentVariable = parseFloat(this.currentNumber);
     if (isNaN(previousVariable) || isNaN(currentVariable)) return;
-    const operations = {
-      '+': (previousVariable, currentVariable) => previousVariable + currentVariable,
-      '-': (previousVariable, currentVariable) => previousVariable - currentVariable,
-      '×': (previousVariable, currentVariable) => previousVariable * currentVariable,
-      '÷': (previousVariable, currentVariable) => previousVariable / currentVariable,
-    }
-    this.currentNumber = operations[this.operator](previousVariable, currentVariable);
+    this.currentNumber = this.operations[this.operator](previousVariable, currentVariable);
     this.operator = undefined;
     this.previousNumber = "";
   }
@@ -81,16 +81,16 @@ operationBtn.forEach((btn) => {
 });
 
 equalBtn.addEventListener("click", () => {
-  calculator.calculation();
+  calculator.calculateResult();
   calculator.updateOutput();
 });
 
 clearBtn.addEventListener("click", () => {
-  calculator.clear();
+  calculator.clearOutput();
   calculator.updateOutput();
 });
 
 deleteBtn.addEventListener("click", () => {
-  calculator.delete();
+  calculator.deleteNumberFromOutput();
   calculator.updateOutput();
 });
