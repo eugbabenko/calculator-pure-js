@@ -1,0 +1,88 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: normal;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to right, #56ace2, #429849);
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.calculator {
+    max-width: 425px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #35434E;
+    border-radius: 10px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 85px);
+}
+
+.calculator > button {
+    margin: 5px;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 25px;
+    border: none;
+}
+
+.calculator > button:hover {
+    opacity: .9;
+}
+
+.span-two {
+    grid-column: span 2;
+}
+
+.output {
+    grid-column: 1 / -1;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(93, 161, 117);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.output .previous-number {
+    color: rgba(0, 0, 0, .55);
+    font-size: 18px;
+}
+
+.output .current-number {
+    color: rgba(0, 0, 0,);
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.clear {
+    background-color:rgba(251, 22, 22, 0.75)
+}
+
+.number {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.operation {
+    background-color: rgba(103, 187, 221, 0.75);
+}
+
+.delete {
+    background-color: rgba(212, 227, 46, 0.75);
+}
